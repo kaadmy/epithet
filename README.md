@@ -3,15 +3,15 @@
 
 # Compatibility
 
-Currently no compatibility testing has been done, and Sweer has only been tested within a Linux TTY, and a terminal emulator running in X (Alacritty.)
+Currently no compatibility testing has been done, and Epithet has only been tested within a Linux TTY, and a terminal emulator running in X (Alacritty.)
 
 # Compiling
 
-Simply include the file `sweer.h` as needed, and define `SWEER_IMPLEMENTATION` at one place in your source tree.
+Simply include the file `epithet.h` as needed, and define `EP_IMPLEMENTATION` at one place in your source tree.
 
 ```c
-#define SWEER_IMPLEMENTATION
-#include "sweer.h"
+#define EP_IMPLEMENTATION
+#include "epithet.h"
 ```
 
 # Usage
