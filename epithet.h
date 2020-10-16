@@ -369,10 +369,13 @@ void epInit(void) {
 }
 
 void epDeinit(void) {
+  epSetCursorVisibility(true);
+
   epWriteChar_(EP_ESC_CHAR0_);
   epWriteChar_(EP_ESC_CHAR1_);
   epWriteChar_('m');
   epWriteChar_('\n');
+
   epFlush_(true);
 
   if(tcsetattr(epState_.stdin_fileno, TCSAFLUSH, &epState_.original_termios)) {
