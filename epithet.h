@@ -299,24 +299,22 @@ static inline void epWriteAttr_(EpAttr attr) {
   epWriteChar_(EP_ESC_CHAR0_);
   epWriteChar_(EP_ESC_CHAR1_);
 
-  if(attr.style == EP_STYLE_NONE) {
-    epWriteNum_(0);
-  } else {
-    if(attr.style & EP_STYLE_BOLD) {
-      epWriteNum_(1);
-    }
-    if(attr.style & EP_STYLE_ITALIC) {
-      epWriteNum_(3);
-    }
-    if(attr.style & EP_STYLE_UNDERLINE) {
-      epWriteNum_(4);
-    }
-    if(attr.style & EP_STYLE_INVERT) {
-      epWriteNum_(7);
-    }
-    if(attr.style & EP_STYLE_STRIKETHROUGH) {
-      epWriteNum_(9);
-    }
+  epWriteNum_(0);
+
+  if(attr.style & EP_STYLE_BOLD) {
+    epWriteNum_(1);
+  }
+  if(attr.style & EP_STYLE_ITALIC) {
+    epWriteNum_(3);
+  }
+  if(attr.style & EP_STYLE_UNDERLINE) {
+    epWriteNum_(4);
+  }
+  if(attr.style & EP_STYLE_INVERT) {
+    epWriteNum_(7);
+  }
+  if(attr.style & EP_STYLE_STRIKETHROUGH) {
+    epWriteNum_(9);
   }
 
   if(attr.fg > 10) {
