@@ -154,6 +154,7 @@ void epSetFlags(EpFlags flags);
 
 // Input handling.
 
+void epSetKey(uint32_t key);
 uint32_t epGetKey(void);
 
 // Window handling.
@@ -222,6 +223,9 @@ static struct {
   // Output buffering.
   char write_buffer[EP_WRITE_BUFFER_SIZE_];
   size_t write_buffer_size;
+
+  // Input state.
+  uint32_t next_key;
 
   // Cursor coordinates are relative to viewport.
   uint32_t cursor_x;
@@ -414,7 +418,17 @@ void epSetFlags(EpFlags flags) {
 
 // Input handling.
 
+void epSetKey(uint32_t key) {
+  epState_.next_key = key;
+}
+
 uint32_t epGetKey(void) {
+  if(epState_.next_key) {
+    uint32_t k = epState_.next_key;
+    epState_.next_key = 0;
+    return k;
+  }
+
   char keybuf[16];
   int keybuf_size;
 
