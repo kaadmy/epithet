@@ -335,7 +335,7 @@ static inline void epWriteAttr_(EpAttr attr) {
   }
 
   if(attr.bg > 10) {
-    epWriteNum_(attr.bg - 11);
+    epWriteNum_(100 + (attr.bg - 11));
   } else if(attr.bg > 0) {
     epWriteNum_(40 + (attr.bg - 1));
   }
