@@ -19,22 +19,24 @@ int main(int argc, char **argv) {
   // Don't echo pressed keys, and send key events without buffering and waiting for the enter key.
   epSetFlags(EP_NO_ECHO_BIT | EP_NO_BUFFER_BIT);
 
-  draw();
+  // Hide cursor.
+  epSetCursorVisible(false);
 
   // Wait for the user to press any key.
   uint32_t key = EP_KEY_NONE;
   while(1) {
     key = epGetKey();
+
+    draw();
+
+    // The first `epGetKey` call will always return `EP_KEY_RESIZE`.
     if(key == EP_KEY_RESIZE) {
-      draw();
       epDrawString(0, 1, EP_ATTR(EP_STYLE_INVERT, EP_COLOR_BLUE, EP_COLOR_NORMAL), "Resized!", 0);
       epFlush();
       continue;
     } else {
       break;
     }
-
-    draw();
   }
 
   // Display the key number in red.

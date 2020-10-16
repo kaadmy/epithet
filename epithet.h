@@ -176,7 +176,7 @@ void epClear(void);
 
 // Cursor handling.
 
-void epSetCursorVisibility(bool visible);
+void epSetCursorVisible(bool visible);
 void epSetCursorPos(uint32_t x, uint32_t y);
 
 // Viewport.
@@ -369,7 +369,7 @@ void epInit(void) {
 }
 
 void epDeinit(void) {
-  epSetCursorVisibility(true);
+  epSetCursorVisible(true);
 
   epWriteChar_(EP_ESC_CHAR0_);
   epWriteChar_(EP_ESC_CHAR1_);
@@ -521,18 +521,21 @@ void epClear(void) {
   epWriteChar_(EP_ESC_CHAR1_);
   epWriteChar_('2');
   epWriteChar_('J');
+
   epFlush_(true);
 }
 
 // Cursor handling.
 
-void epSetCursorVisibility(bool visible) {
+void epSetCursorVisible(bool visible) {
   epWriteChar_(EP_ESC_CHAR0_);
   epWriteChar_(EP_ESC_CHAR1_);
   epWriteChar_('?');
   epWriteChar_('2');
   epWriteChar_('5');
   epWriteChar_((visible ? 'h' : 'l'));
+
+  epFlush_(true);
 }
 
 void epSetCursorPos(uint32_t x, uint32_t y) {
@@ -624,6 +627,7 @@ void epDrawChar(uint32_t x, uint32_t y, EpAttr attr, char c) {
   epWriteAttr_(attr);
   epSetCursorPos(x, y);
   epWriteChar_(c);
+
   epFlush_(false);
 }
 
@@ -646,6 +650,7 @@ void epDrawString(uint32_t x, uint32_t y, EpAttr attr, const char *str, size_t s
     }
     epWriteChar_(str[i]);
   }
+
   epFlush_(false);
 }
 
@@ -678,6 +683,7 @@ void epDrawHline(uint32_t x, uint32_t y, uint32_t len, EpAttr attr, char c) {
     }
     epWriteChar_(c);
   }
+
   epFlush_(false);
 }
 
@@ -687,6 +693,7 @@ void epDrawVline(uint32_t x, uint32_t y, uint32_t len, EpAttr attr, char c) {
     epSetCursorPos(x, y + i);
     epWriteChar_(c);
   }
+
   epFlush_(false);
 }
 
@@ -708,6 +715,7 @@ void epDrawRect(uint32_t x, uint32_t y, uint32_t w, uint32_t h, EpAttr attr, cha
       epWriteChar_(c);
     }
   }
+
   epFlush_(false);
 }
 
