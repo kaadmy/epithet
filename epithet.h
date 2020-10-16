@@ -8,6 +8,13 @@
 // ============================================================
 
 /*
+ * Implementation config:
+ *
+ * `#define EP_DEBUG_ESC`: Don't insert escape sequences as usual so the raw values can be viewed.
+ *
+ */
+
+/*
   Copyright © 2020 kaadmy
 
   Permission is hereby granted, free of charge, to any person
@@ -206,8 +213,12 @@ void epDrawRect(uint32_t x, uint32_t y, uint32_t w, uint32_t h, EpAttr attr, cha
 #if defined(EP_IMPLEMENTATION)
 
 #define EP_ESC_ "\x1b["
-#define EP_ESC_CHAR0_ 0x1b
-//#define EP_ESC_CHAR0_ '?'
+
+#if defined(EP_DEBUG_ESC)
+#  define EP_ESC_CHAR0_ 'e'
+#else
+#  define EP_ESC_CHAR0_ '\x1b'
+#endif
 #define EP_ESC_CHAR1_ '['
 
 #define EP_WRITE_BUFFER_SIZE_ 4096
