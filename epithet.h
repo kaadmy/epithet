@@ -241,7 +241,7 @@ static struct {
   .stdin_fileno = 0,
   .stdout_fileno = 1,
 
-  .resized = false,
+  .resized = true,
 };
 
 // Internal output handling.
