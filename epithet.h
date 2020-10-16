@@ -88,8 +88,6 @@ typedef enum EpColor {
   EP_COLOR_CYAN = 7,
   EP_COLOR_WHITE = 8,
 
-  EP_COLOR_MAX_ENUM,
-
   EP_COLOR_BRIGHT_BLACK = 11,
   EP_COLOR_BRIGHT_RED = 12,
   EP_COLOR_BRIGHT_GREEN = 13,
@@ -98,23 +96,33 @@ typedef enum EpColor {
   EP_COLOR_BRIGHT_MAGENTA = 16,
   EP_COLOR_BRIGHT_CYAN = 17,
   EP_COLOR_BRIGHT_WHITE = 18,
+
+  EP_COLOR_UNSET = 19,
 } EpColor;
 
 typedef enum EpStyle {
   EP_STYLE_NONE = 0,
 
   EP_STYLE_BOLD = 1,
-  EP_STYLE_ITALIC = 2,
-  EP_STYLE_UNDERLINE = 4,
-  EP_STYLE_INVERT = 8,
-  EP_STYLE_INVISIBLE = 16,
-  EP_STYLE_STRIKETHROUGH = 32,
+  EP_STYLE_BOLD_UNSET = 2,
+
+  EP_STYLE_ITALIC = 4,
+  EP_STYLE_ITALIC_UNSET = 8,
+
+  EP_STYLE_UNDERLINE = 16,
+  EP_STYLE_UNDERLINE_UNSET = 32,
+
+  EP_STYLE_INVERT = 64,
+  EP_STYLE_INVERT_UNSET = 128,
+
+  EP_STYLE_STRIKETHROUGH = 256,
+  EP_STYLE_STRIKETHROUGH_UNSET = 512,
 } EpStyle;
 
 typedef struct EpAttr {
-  EpStyle style;
-  EpColor fg;
-  EpColor bg;
+  uint16_t style;
+  uint8_t fg;
+  uint8_t bg;
 } EpAttr;
 
 #if defined(EP_IMPLEMENTATION)
@@ -303,9 +311,6 @@ static inline void epWriteAttr_(EpAttr attr) {
     }
     if(attr.style & EP_STYLE_INVERT) {
       epWriteNum_(7);
-    }
-    if(attr.style & EP_STYLE_INVISIBLE) {
-      epWriteNum_(8);
     }
     if(attr.style & EP_STYLE_STRIKETHROUGH) {
       epWriteNum_(9);
